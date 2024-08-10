@@ -40,9 +40,7 @@ ensure you have the following installed:
 
 clone the repository from github to your local machine by running this command within your IDE:
 
-> sudo git clone https://github.com/cyber123-lol/flames-finance-manager.git
-OR
-> git clone https://github.com/cyber123-lol/flames-finance-manager.git
+> git clone https://github.com/cyber123-lol/flames-finance-manager.gi t
 
 ### 3. installing the requirements
 
