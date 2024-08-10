@@ -7,19 +7,19 @@
 
 flame's finance manager includes a range of features to help you stay on top of your finances:
 
-### 1. user authentication and profile management
+* 1. user authentication and profile management
 
 
-### 2. transaction management
+* 2. transaction management
 
 
-### 3. savings goals setting and tracking
+* 3. savings goals setting and tracking
 
 
-### 4. financial analytics and visualizations
+* 4. financial analytics and visualizations
 
 
-### 5. report generation
+* 5. report generation
 
 
 ## installation
