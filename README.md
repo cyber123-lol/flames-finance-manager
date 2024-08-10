@@ -2,6 +2,7 @@
 
 **flame's finance manager** is a web application designed to help you manage your personal finances effectively. this application enables users to track their income and expenses, set and monitor savings goals, analyze financial data, and generate detailed reports. with a user-friendly interface and support for dark mode, it ensures that you can manage your finances in a way that suits your preferences
 
+# youtube link:
 
 ## features
 
