@@ -59,9 +59,35 @@ now run the flask application by running this command:
 
 now the application should be running locally on *http://127.0.0.1:5000/*
 
-open this URL in your browser to access the application.
+open this URL in your browser to access the application!
 
 
 
 
 ## usage
+
+### 1. user registration and login
+- **register**: create an account with a unique username and secure password
+- **login**: access your dashboard using your registered credentials
+
+### 2. dashboard
+-**overview**: view a summary of your transactions and savings goals. the dashboard is neatly organized with collapsible sections for transactions and goals
+-**dark/light mode**: use the toggle button at the top right of the navbar (navigation bar at the top of the site) to switch between dark and light themes
+
+### 3. managing your transactions
+
+-**add transaction**: enter details for new income or expense transactions, categorized by type and date
+-**view transactions**: transactions are listed in a paginated format, with a limit of 10 per page for compact and easy browsing.
+-**remove transaction**: delete transactions using the provided interface
+
+### 4. setting and tracking savings goals
+-**create goal**: define a new savings goal with a target amount
+-**update goal**: add contributions to your goal and track progress as a percentage
+-**delete goal**: remove goals that are no longer relevant
+
+### 5. financial analysis
+-**visual insights**: access pie charts displaying the distribution of your income and expenses by category
+-**dark/light mode (again)**: charts adapt to the current theme, ensuring clear visibility in both dark and light modes
+
+### 6. report generation
+-**generate PDF reports**: compile your financial data into a downloadable PDF report. this report includes a summary of all transactions and goals, providing a comprehensive view of your financial status
