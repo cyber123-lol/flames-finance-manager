@@ -19,6 +19,7 @@ flame's finance manager is a web application designed to assist users in managin
   - **SQLite**: an sqlite database was used for this project due to its simplicity and the fact that it doesn't require a separate server setup, making it ideal for a smaller-scale application like this one
   
   - **tables**:
+
     -`users`: stores the user credentials and profile information
 
     -`transactions`: logs all income and expense records
