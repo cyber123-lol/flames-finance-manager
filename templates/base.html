@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}flame's finance manager{% endblock %}</title>
+    <!-- Font Awesome 6.6.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='dark_mode.js') }}"></script>
+</head>
+<body class="{{ 'dark-mode' if session.get('dark_mode') else 'light-mode' }}">
+    <nav class="navbar {{ 'navbar-dark-mode' if session.get('dark_mode') else 'navbar-light-mode' }}">
+        <div class="navbar-brand-container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">flame's finance manager</a>
+            <button class="navbar-toggler" id="navbarToggler">
+                ☰
+            </button>
+        </div>
+        <ul class="navbar-nav" id="navbarMenu">
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('dashboard') }}">dashboard</a></li>
+                <li><a href="{{ url_for('analytics') }}">analytics</a></li>
+                <li><a href="{{ url_for('manage_goal') }}">manage goals</a></li>
+                <li><a href="{{ url_for('manage_transaction') }}">manage transactions</a></li>
+                <li><a href="{{ url_for('generate_report') }}">generate report</a></li>
+                <li><a href="{{ url_for('logout') }}">logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('register') }}">register</a></li>
+                <li><a href="{{ url_for('login') }}">login</a></li>
+            {% endif %}
+        </ul>
+        <button id="darkModeToggle" class="dark-mode-icon">🌑</button>            
+        </button>
+    </nav>
+
+    <div class="container {{ 'container-dark-mode' if session.get('dark_mode') else 'container-light-mode' }}">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    {% block content %}{% endblock %}
+    </div>
+
+    <script>
+        document.getElementById('navbarToggler').addEventListener('click', function() {
+            const menu = document.getElementById('navbarMenu');
+            menu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>manage goals</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body class="{{ 'dark-mode' if session.get('dark_mode') else 'light-mode' }}">
+    <div class="container container-{{ 'dark-mode' if session.get('dark_mode') else 'light-mode' }}">
+        {% extends "base.html" %}
+        {% block title %}manage goals{% endblock %}
+        {% block content %}
+        <!-- current goals -->
+        <div class="card mt-4">
+            <div class="card-header card-header-{{ 'dark-mode' if session.get('dark_mode') else 'light-mode' }}">
+                current goals
+            </div>
+            <div class="card-body card-body-{{ 'dark-mode' if session.get('dark_mode') else 'light-mode' }}">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>name</th>
+                            <th>amount</th>
+                            <th>current amount</th>
+                            <th>progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for goal in goals %}
+                        <tr>
+                            <td>{{ goal[0] }}</td>
+                            <td>{{ goal[2] }}</td>
+                            <td>${{ goal[3] }}</td>
+                            <td>${{ goal[4] }}</td>
+                            <td>
+                                {% if goal[3] > 0 %}
+                                    {{ ((goal[4] or 0) / goal[3]) * 100 | round(2) }}%
+                                {% else %}
+                                    0%
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- pagination controls -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        {% if page > 1 %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('manage_goal', page=page-1) }}" aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span> <!-- Left arrow -->
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if page < total_pages %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('manage_goal', page=page+1) }}" aria-label="Next">
+                                <span aria-hidden="true">&gt;</span> <!-- Right arrow -->
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- add goal form -->
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        add goal
+                    </div>
+                    <div class="card-body">
+                        <form id="addGoalForm" action="{{ url_for('manage_goal') }}" method="POST">
+                            <input type="hidden" name="action" value="add">
+                            <div class="mb-3">
+                                <label for="goal_name" class="form-label">goal name</label>
+                                <input type="text" id="goal_name" name="goal_name" class="form-control" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="goal_amount" class="form-label">goal amount</label>
+                                <input type="number" id="goal_amount" name="goal_amount" class="form-control" min="0" step="0.01" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">add goal</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- update goal form -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        update goal
+                    </div>
+                    <div class="card-body">
+                        <form id="updateGoalForm" action="{{ url_for('manage_goal') }}" method="POST">
+                            <input type="hidden" name="action" value="update">
+                            <div class="mb-3">
+                                <label for="goal_id" class="form-label">goal ID</label>
+                                <input type="text" id="goal_id" name="goal_id" class="form-control" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="amount_to_add" class="form-label">amount to add</label>
+                                <input type="number" id="amount_to_add" name="amount_to_add" class="form-control" min="0" step="0.01" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-success">add to goal</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- remove goal form -->
+            <div class="col-md-4">            
+                <div class="card">
+                    <div class="card-header">
+                        remove goal
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ url_for('manage_goal') }}" method="POST">
+                            <input type="hidden" name="action" value="remove">
+                            <div class="mb-3">
+                                <label for="goal_id" class="form-label">goal ID</label>
+                                <input type="text" id="goal_id" name="goal_id" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-danger">remove goal</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login - flame's finance manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="container">
+        <h2>login</h2>
+        <form action="{{ url_for('login') }}" method="POST">
+            <label for="username">username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">login</button>
+        </form>
+
+        <!-- link to the registration page if the user does not have an account -->
+        <div class="account-option">
+            <p>don't have an account?</p>
+            <a href="{{ url_for('register') }}" class="btn btn-outline-primary">> register here</a>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

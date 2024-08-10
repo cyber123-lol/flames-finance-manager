@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard - flame's finance manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"> <!-- Font Awesome -->
+    <script>
+        function toggleSection(id, arrowId) {
+            const section = document.getElementById(id);
+            const arrow = document.getElementById(arrowId);
+            const isHidden = section.classList.contains('collapsed');
+
+            if (isHidden) {
+                section.style.maxHeight = section.scrollHeight + 'px';
+                section.classList.remove('collapsed');
+                arrow.classList.remove('fa-chevron-right');
+                arrow.classList.add('fa-chevron-down');
+            } else {
+                section.style.maxHeight = section.scrollHeight + 'px'; // set to current height
+                window.getComputedStyle(section).maxHeight; // trigger reflow
+                section.style.maxHeight = 0;
+                section.classList.add('collapsed');
+                arrow.classList.remove('fa-chevron-down');
+                arrow.classList.add('fa-chevron-right');
+            }
+        }
+    </script>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="container">
+        <h2>dashboard</h2>
+
+        <!-- Transactions Section -->
+        <div class="section-header" onclick="toggleSection('transactionsSection', 'transactionsArrow')">
+            <i id="transactionsArrow" class="fas fa-chevron-right"></i> <!-- Font Awesome Arrow -->
+            <h3>transactions</h3>
+        </div>
+        <div id="transactionsSection" class="collapsible-section collapsed">
+            {% if transactions %}
+            <table class="table {{ 'table-dark-mode' if session.get('dark_mode') else 'table-light-mode' }}">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>amount</th>
+                        <th>category</th>
+                        <th>type</th>
+                        <th>date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ transaction[0] }}</td>
+                        <td>{{ transaction[2] }}</td>
+                        <td>{{ transaction[3] }}</td>
+                        <td>{{ transaction[4] }}</td>
+                        <td>{{ transaction[5] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>you don't have any transactions.</p>
+            {% endif %}
+        </div>
+
+        <!-- Goals Section -->
+        <div class="section-header" onclick="toggleSection('goalsSection', 'goalsArrow')">
+            <i id="goalsArrow" class="fas fa-chevron-right"></i> <!-- Font Awesome Arrow -->
+            <h3>goals</h3>
+        </div>
+        <div id="goalsSection" class="collapsible-section collapsed">
+            {% if goals %}
+            <table class="table {{ 'table-dark-mode' if session.get('dark_mode') else 'table-light-mode' }}">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>name</th>
+                        <th>amount</th>
+                        <th>current amount</th>
+                        <th>progress</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for goal in goals %}
+                    <tr>
+                        <td>{{ goal[0] }}</td>
+                        <td>{{ goal[2] }}</td>
+                        <td>{{ goal[3] }}</td>
+                        <td>{{ goal[4] }}</td>
+                        <td>
+                            {% if goal[3] > 0 %}
+                                {{ ((goal[4] or 0) / goal[3]) * 100 | round(2) }}%
+                            {% else %}
+                                0%
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>you have not set any goals.</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

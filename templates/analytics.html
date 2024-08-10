@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>financial analytics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="{{ 'dark-mode' if session.get('dark_mode') else 'light-mode' }}">
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="container {{ 'container-dark-mode' if session.get('dark_mode') else 'container-light-mode' }}">
+        <h2>financial analytics</h2>
+        
+        <!-- expense chart container -->
+        <div class="chart-container mt-4" style="width: 100%; height: 400px;">
+            <canvas id="expenseChart"></canvas>
+        </div>
+
+        <!-- income chart container -->
+        <div class="chart-container mt-5" style="width: 100%; height: 400px;">
+            <canvas id="incomeChart"></canvas>
+        </div>
+
+        <!-- chart.js script -->
+        <script>
+            // function to get chart colors based on the current mode (light or dark)
+            function getChartColors() {
+                const darkModeEnabled = document.body.classList.contains('dark-mode');
+                
+                if (darkModeEnabled) {
+                    // colors for dark mode
+                    return {
+                        backgroundColor: [
+                            '#415a77',
+                            '#778da9',
+                            '#1b263b',
+                            '#0d1b2a',
+                            '#e0e1dd'
+                        ],
+                        borderColor: '#e0e1dd', // border color in dark mode
+                        textColor: '#e0e1dd' // text color
+                    };
+                } else {
+                    // colors for light mode
+                    return {
+                        backgroundColor: [
+                            '#415a77',
+                            '#778da9',
+                            '#e0e1dd',
+                            '#1b263b',
+                            '#0d1b2a'
+                        ],
+                        borderColor: '#415a77', // border color in light mode
+                        textColor: '#415a77' // text color
+                    };
+                }
+            }
+
+            // function to create and render a pie chart
+            function createPieChart(ctx, data, label) {
+                const colors = getChartColors();
+                return new Chart(ctx, {
+                    type: 'pie', // pie chart type
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            label: label,
+                            data: data.values,
+                            backgroundColor: colors.backgroundColor, // pie segment colors
+                            borderColor: colors.borderColor, // border color
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    color: colors.textColor // legend text color
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: label,
+                                color: colors.textColor // chart title text color
+                            }
+                        }
+                    }
+                });
+            }
+
+            // getting the canvas contexts for expense and income charts
+            const expenseCtx = document.getElementById('expenseChart').getContext('2d');
+            const incomeCtx = document.getElementById('incomeChart').getContext('2d');
+
+            // preparing expense data
+            const expenseData = {
+                labels: JSON.parse('{{ expense_data | tojson | safe }}').map(item => item[0]),
+                values: JSON.parse('{{ expense_data | tojson | safe }}').map(item => item[1])
+            };
+
+            // preparing income data
+            const incomeData = {
+                labels: JSON.parse('{{ income_data | tojson | safe }}').map(item => item[0]),
+                values: JSON.parse('{{ income_data | tojson | safe }}').map(item => item[1])
+            };
+
+            // creating expense pie chart
+            createPieChart(expenseCtx, expenseData, 'expense distribution ($)');
+
+            // creating income pie chart
+            createPieChart(incomeCtx, incomeData, 'income distribution ($)');
+
+            // event listener to re-render charts on dark mode toggle
+            document.getElementById('darkModeToggle').addEventListener('click', function() {
+                createPieChart(expenseCtx, expenseData, 'expense distribution ($)');
+                createPieChart(incomeCtx, incomeData, 'income distribution ($)');
+            });
+        </script>
+    </div>
+    {% endblock %}
+</body>
+</html>
