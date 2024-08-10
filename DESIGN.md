@@ -1,7 +1,7 @@
 ## project overview
 
 
-### architecture
+## architecture
 
 
 ## design considerations
