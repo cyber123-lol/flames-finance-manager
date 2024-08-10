@@ -17,10 +17,14 @@ flame's finance manager is a web application designed to assist users in managin
  
 ### 3. **database design**
   - **SQLite**: an sqlite database was used for this project due to its simplicity and the fact that it doesn't require a separate server setup, making it ideal for a smaller-scale application like this one
+  
   - **tables**:
     -`users`: stores the user credentials and profile information
+
     -`transactions`: logs all income and expense records
+
     -`goals`: tracks the savings goals set by the user
+  
   - **design decision**: sqlite was chosen for its lightweight nature and ease of use during development. it also supports atomic commit and rollback, which is important for maintaining the data integrity
 
 ### 4. **frontend design**
