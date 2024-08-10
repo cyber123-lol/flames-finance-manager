@@ -8,31 +8,18 @@
 flame's finance manager includes a range of features to help you stay on top of your finances:
 
 ### 1. user authentication and profile management
-- **secure registration and login**: users can register with a unique username and password. login to access your personal finance dashboard.
-- **profile management**: update your profile details and securely manage your account.
+
 
 ### 2. transaction management
-- **add transactions**: record your income and expenses, categorized for easy tracking.
-  
-- **view transactions**: browse through a paginated list of your transactions, filtered by type, category, and date.
 
-- **remove transactions**: delete any transaction that you no longer need.
 
 ### 3. savings goals setting and tracking
-- **create goals**: set savings goals by defining a target amount and tracking your progress.
 
-- **update goals**: add funds to your savings goals and monitor the percentage completion.
-
-- **delete goals**: remove goals that are no longer relevant to your financial plan.
 
 ### 4. financial analytics and visualizations
-- **expense and income charts**: visualize your financial data through interactive pie charts.
 
-- **dark/light mode**: toggle between dark and light themes to suit your preference.
 
 ### 5. report generation
-- **generate reports**: create comprehensive financial reports in pdf format, summarizing your transactions and goals.
-
 
 
 ## installation
