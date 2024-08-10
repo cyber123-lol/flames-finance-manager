@@ -6,10 +6,10 @@ flame's finance manager is a web application designed to assist users in managin
 ### 1. **flask framework**
 - **reason for selection**: flask was chosen for its simplicity and its flexibility. it allowed me to easily integrate various extensions and libraries while maintaining a minimalistic structure.
 - **projection structure**:
-  - `app.py`: the main application file that contains the core logic, routes, and viewing functions
-  - `templates/`: directory for the HTML templates
-  - `static/`: contains static files such as `style.css` and `dark_mode.js`
-  - `initialize_db.py`: script for initializing the sqlite3 database
+  `app.py`: the main application file that contains the core logic, routes, and viewing functions
+  `templates/`: directory for the HTML templates
+  `static/`: contains static files such as `style.css` and `dark_mode.js`
+  `initialize_db.py`: script for initializing the sqlite3 database
 
 ### 2. **user auth**
   - **implementation**: user authentication was implemented using flask-login. this library handles the user session management, making it easier to restrict access to certain routes on the site
