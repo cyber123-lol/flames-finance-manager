@@ -58,6 +58,7 @@ now run the flask application by running this command:
 > flask run
 
 now the application should be running locally on *http://127.0.0.1:5000/*
+
 open this URL in your browser to access the application.
 
 
